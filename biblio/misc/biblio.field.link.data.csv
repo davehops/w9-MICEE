@@ -1,0 +1,116 @@
+0fid,title,hint, common, autocomplete, required, weight, visible,field name,type,width,maxlength,vtab
+1,Authors,,1,1,1,1,1,biblio_authors,contrib_widget,60,255,1
+2,Secondary Authors,,1,1,1,2,1,biblio_secondary_authors,contrib_widget,60,255,1
+3,Tertiary Authors,,1,1,1,3,1,biblio_tertiary_authors,contrib_widget,60,255,1
+4,Subsidiary Authors,,1,1,1,4,1,biblio_subsidiary_authors,contrib_widget,60,255,1
+5,Corporate Authors,,1,1,1,5,1,biblio_corp_authors,contrib_widget,60,255,1
+6,Secondary Title,,0,0,0,12,0,biblio_secondary_title,textfield,60,255,1
+7,Tertiary Title,,0,0,0,13,0,biblio_tertiary_title,textfield,60,255,1
+8,Accession Number,,1,0,0,151,1,biblio_accession_number,textfield,24,128,1
+9,ISBN Number,,1,0,0,150,1,biblio_isbn,textfield,24,128,1
+10,Call Number,,1,0,0,152,1,biblio_call_number,textfield,24,128,1
+11,Other Numbers,,1,0,0,153,1,biblio_other_number,textfield,10,128,1
+12,Other Author Affiliations,,0,0,0,24,0,biblio_other_author_affiliations,textfield,60,255,1
+13,Publisher,,0,0,0,19,0,biblio_publisher,textfield,60,255,1
+14,Place Published,,0,0,0,20,0,biblio_place_published,textfield,60,255,1
+15,Year of Publication,"Enter YYYY, Submitted or In Press",1,0,1,-45,1,biblio_year,textfield,4,20,1
+16,Edition,,0,0,0,15,0,biblio_edition,textfield,60,255,1
+17,Volume,,0,0,0,14,0,biblio_volume,textfield,10,128,1
+18,Number,,0,0,0,16,0,biblio_number,textfield,10,128,1
+19,Pagination,,0,0,0,17,0,biblio_pages,textfield,24,128,1
+20,Date Published,(mm/yyyy),0,0,0,18,0,biblio_date,textfield,16,16,1
+21,Publication Language,,0,0,0,23,0,biblio_lang,textfield,24,24,1
+22,Abstract,,1,0,0,155,1,biblio_abst_e,text_format,60,65535,1
+23,French Abstract,,0,0,0,156,0,biblio_abst_f,text_format,60,65535,1
+24,Keywords,,1,1,0,154,0,biblio_keywords,textfield,60,1000,1
+25,Type of Work,Masters Thesis,0,0,0,22,0,biblio_type_of_work,textfield,60,255,1
+26,URL,,1,0,0,158,1,biblio_url,textfield,60,255,1
+27,Notes,,0,0,0,157,0,biblio_notes,text_format,60,65535,1
+28,Issue,,0,0,0,15,0,biblio_issue,textfield,10,128,1
+29,Reseach Notes,,0,0,0,160,0,biblio_research_notes,text_format,60,65535,1
+30,Custom 1,,0,0,0,161,0,biblio_custom1,text_format,60,65535,1
+31,Custom 2,,0,0,0,162,0,biblio_custom2,text_format,60,65535,1
+32,Custom 3,,0,0,0,163,0,biblio_custom3,text_format,60,65535,1
+33,Custom 4,,0,0,0,164,0,biblio_custom4,text_format,60,65535,1
+34,Custom 5,,0,0,0,165,0,biblio_custom5,text_format,60,65535,1
+35,Custom 6,,0,0,0,167,0,biblio_custom6,text_format,60,65535,1
+36,Custom 7,,0,0,0,168,0,biblio_custom7,text_format,60,65535,1
+37,Number of Volumes,,0,0,0,15,0,biblio_number_of_volumes,textfield,10,128,1
+38,Short Title,,0,0,0,169,0,biblio_short_title,textfield,60,255,1
+39,Alternate Title,,0,0,0,170,0,biblio_alternate_title,textfield,60,255,1
+40,Translated Title,,0,0,0,170,0,biblio_translated_title,textfield,60,255,1
+41,Original Publication,,0,0,0,171,0,biblio_original_publication,textfield,60,255,1
+42,Reprint Edition,,0,0,0,172,0,biblio_reprint_edition,textfield,120,255,1
+43,Section,,0,0,0,15,0,biblio_section,textfield,10,128,1
+44,Citation Key,,0,0,0,175,0,biblio_citekey,textfield,16,255,1
+45,COinS Data,This will be automatically generated,0,0,0,176,0,biblio_coins,text_format,60,65535,1
+46,ISSN Number,,0,0,0,150,0,biblio_issn,textfield,24,128,1
+47,DOI,,1,0,0,159,1,biblio_doi,textfield,60,255,1
+48,Author Address,,0,0,0,178,0,biblio_auth_address,text_format,60,65535,1
+49,Remote Database Name,,0,0,0,176,0,biblio_remote_db_name,textfield,60,255,1
+50,Remote Database Provider,,0,0,0,177,0,biblio_remote_db_provider,textfield,60,255,1
+51,Label,,0,0,0,178,0,biblio_label,textfield,60,255,1
+52,Access Date,,0,0,0,179,0,biblio_access_date,textfield,60,255,1
+53,Refereed Designation,,0,0,0,180,0,biblio_refereed,select,0,128,1
+54,1.1 Material Type,,0,0,0,181,0,micee1_1_type,textfield,60,255,2
+55,1.2 Ethical Approval,,0,0,0,182,0,micee1_2_ethical,text_format,60,65535,2
+56,1.3.1 Gender,,0,0,0,183,0,micee1_3_1_gender,select,0,128,2
+57,1.3.2 Age/developmental stage/body mass index,,0,0,0,184,0,micee1_3_2_age_development,text_format,60,65535,2
+58,1.3.3 Clinical information/disease background,,0,0,0,185,0,micee1_3_3_clinical_info,text_format,60,65535,2
+59,1.3.4 Genetic variation,,0,0,0,186,0,micee1_3_4_genetic_var,text_format,60,65535,2
+60,1.3.5 Familial history/pedigree,,0,0,0,187,0,micee1_3_5_familial_hist,text_format,60,65535,2
+61,1.3.6 Point within circadian cycle/point within hormonal cycle,,0,0,0,188,0,micee1_3_6_point_within_cyc,text_format,60,65535,2
+62,"1.3.7 Conscious, sedated, or anesthetised",,0,0,0,189,0,micee1_3_7_conscious_sedat,text_format,60,65535,2
+63,1.4.1 Gender,,0,0,0,190,0,micee1_4_1_gender,select,0,128,2
+64,1.4.2 Age/developmental stage/weight,,0,0,0,191,0,micee1_4_2_age_development,text_format,60,65535,2
+65,1.4.3 Genus/species/strain,,0,0,0,192,0,micee1_4_3_genus_species,text_format,60,65535,2
+66,1.4.4 Supplier,,0,0,0,193,0,micee1_4_4_supplier,text_format,60,65535,2
+67,1.4.5 Genetic variation,,0,0,0,194,0,micee1_4_5_genetic_var,text_format,60,65535,2
+68,1.4.6 Disease model/state,,0,0,0,195,0,micee1_4_6_disease_model,text_format,60,65535,2
+69,1.4.7 Husbandry,,0,0,0,196,0,micee1_4_7_husbandry,text_format,60,65535,2
+70,1.4.8 Point within circadian cycle/point within hormonal cycle,,0,0,0,197,0,micee1_4_8_point_within_cyc,text_format,60,65535,2
+71,"1.4.9 Conscious, sedated, or anesthetised",,0,0,0,198,0,micee1_4_9_conscious_sedat,text_format,60,65535,2
+72,1.4.10 Method of animal dispatch,,0,0,0,199,0,micee1_4_10_method_dispatch,text_format,60,65535,2
+73,1.4.11 Anatomical origin of sample,,0,0,0,200,0,micee1_4_11_anatomical_origin,text_format,60,65535,2
+74,1.4.12 Isolation procedure,,0,0,0,201,0,micee1_4_12_isolation_proc,text_format,60,65535,2
+75,1.4.13 Time and method to final preparation,,0,0,0,202,0,micee1_4_13_time_method,text_format,60,65535,2
+76,1.4.14 Isolated heart mode of operation,,0,0,0,203,0,micee1_4_14_isolated_heart,text_format,60,65535,2
+77,1.4.15 Cell selection process/single cell confirmation/morphological status before and during recordings,,0,0,0,204,0,micee1_4_15_cell_selection,text_format,60,65535,2
+78,1.5.1 Cellular and acellular composition,,0,0,0,205,0,micee1_5_1_cellular_acellular,text_format,60,65535,2
+79,1.5.2 Growth conditions,,0,0,0,206,0,micee1_5_2_growth_conditions,text_format,60,65535,2
+80,1.6.1 Cell line,,0,0,0,207,0,micee1_6_1_cell_line,text_format,60,65535,2
+81,1.6.2 Source/anatomical origin of sample,,0,0,0,208,0,micee1_6_2_anatomical_origin,text_format,60,65535,2
+82,1.6.3 Passage,,0,0,0,209,0,micee1_6_3_passage,text_format,60,65535,2
+83,1.6.4 Culture conditions,,0,0,0,210,0,micee1_6_4_culture_conditions,text_format,60,65535,2
+84,1.6.5 Cell selection process/single cell confirmation/morphological status before and during recordings,,0,0,0,211,0,micee1_6_5_cell_selection,text_format,60,65535,2
+85,1.7.1 Source/anatomical origin of sample,,0,0,0,212,0,micee1_7_1_source_anat_origin,text_format,60,65535,2
+86,1.7.2 Passage,,0,0,0,213,0,micee1_7_2_passage,text_format,60,65535,2
+87,1.7.3 Culture/differentiating conditions,,0,0,0,214,0,micee1_7_3_culture_diff_cond,text_format,60,65535,2
+88,1.7.4 Cell selection process/single cell confirmation/morphological status before and during recordings,,0,0,0,215,0,micee1_7_4_cell_selection,text_format,60,65535,2
+89,2.1 Sample temperature,,0,0,0,216,0,micee2_1_sample_temp,text_format,60,65535,3
+90,2.2 Gas partial pressures,,0,0,0,217,0,micee2_2_gas_partial_press,text_format,60,65535,3
+91,2.3 Solution,,0,0,0,218,0,micee2_3_solution,text_format,60,65535,3
+92,2.4 Flow rates,,0,0,0,219,0,micee2_4_flow_rates,text_format,60,65535,3
+93,2.5 Bath volume,,0,0,0,220,0,micee2_5_bath_volume,text_format,60,65535,3
+94,"2.6 Chemicals, dyes, and/or drugs",,0,0,0,221,0,micee2_6_chemicals_dyes,text_format,60,65535,3
+95,3.1 Study design,,0,0,0,222,0,micee3_1_study_design,text_format,60,65535,4
+96,3.2 Sufficiently detailed account of procedures and interventions for offsite reproduction of study,,0,0,0,223,0,micee3_2_sufficiently_detailed,text_format,60,65535,4
+97,4.1 Time window of recording,,0,0,0,224,0,micee4_1_time_window_rec,text_format,60,65535,5
+98,4.2 Spatial location of recording,,0,0,0,225,0,micee4_2_spatial_location_rec,text_format,60,65535,5
+99,4.3.1 Electrical Recording Equipment,,0,0,0,226,0,micee4_3_1_elec_rec_equip,text_format,60,65535,5
+100,4.3.2 A/D conversion,,0,0,0,227,0,micee4_3_2_ad_convert,text_format,60,65535,5
+101,4.4.1 Optical Measurements Equipment,,0,0,0,228,0,micee4_4_1_opt_meas_equip,text_format,60,65535,5
+102,4.4.2 Settings,,0,0,0,229,0,micee4_4_2_settings,text_format,60,65535,5
+103,4.5.1 Other Recording Type Equipment,,0,0,0,230,0,micee4_5_1_other_rec_equip,text_format,60,65535,5
+104,4.5.2 A/D conversion,,0,0,0,231,0,micee4_5_2_ad_convert,text_format,60,65535,5
+105,4.6 Timing control,,0,0,0,232,0,micee4_6_timing_control,text_format,60,65535,5
+106,4.7 Hardware based data processing,,0,0,0,233,0,micee4_7_hdwr_bsd_data_proc,text_format,60,65535,5
+107,4.8 Software environment,,0,0,0,234,0,micee4_8_rec_software_environ,text_format,60,65535,5
+108,5.1 Software environment,,0,0,0,235,0,micee5_1_analy_software_environ,text_format,60,65535,6
+109,5.2 n number(s) (Number of Subjects/Number of Preparations per Subject/Number of Observations per Preparation/etc.),,0,0,0,236,0,micee5_2_n_numbers,text_format,60,65535,6
+110,5.3 Observations inclusion and exclusion criteria/number of rejected observations,,0,0,0,237,0,micee5_3_observation_inclusion,text_format,60,65535,6
+111,5.4 Signal-to-noise,,0,0,0,238,0,micee5_4_signal_to_noise,text_format,60,65535,6
+112,5.5 Software based data processing,,0,0,0,239,0,micee5_5_software_based_proc,text_format,60,65535,6
+113,5.6 Calculated parameters,,0,0,0,240,0,micee5_6_calc_params,text_format,60,65535,6
+114,5.7 Sufficiently detailed description of statistical methods for offsite reproduction,,0,0,0,241,0,micee5_7_sufficiently_detailed,text_format,60,65535,6
+115,5.8 Example(s) of raw and processed data,,0,0,0,242,0,micee5_8_data_examples,text_format,60,65535,6
