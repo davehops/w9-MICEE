@@ -1,0 +1,478 @@
+<?php
+/**
+ * @file
+ * Database table creation for biblio_xml module.
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function biblio_xml_install() {
+  _save_xml_maps();
+}
+
+function biblio_xml_uninstall() {
+  if (db_table_exists('biblio_type_maps')) {
+
+    db_delete('biblio_type_maps')
+      ->condition('format', 'endnote8')
+      ->execute();
+
+    db_delete('biblio_type_maps')
+      ->condition('format', 'endnote7')
+      ->execute();
+  }
+}
+
+function biblio_xml_enable() {
+  biblio_xml_set_system_weight();
+}
+
+function biblio_xml_set_system_weight() {
+  db_update('system')
+    ->fields(array('weight' => 26))
+    ->condition('name', 'biblio_xml')
+    ->execute();
+}
+
+function _save_xml_maps() {
+  //_save_endnote7_maps();    //micee edit - commented endnote 7 map to disable
+  _save_endnote8_maps();
+}
+/*function _save_endnote7_maps() {    //micee edit - commented endnote 7 map to disable
+  $format = 'endnote7';
+  $typemap = _get_endnote7_type_map();
+  $typenames = _get_endnote7_type_names();
+  $fieldmap = _get_endnote7_field_map();
+  $maps = array_merge($typemap, $typenames, $fieldmap);
+  biblio_save_map($maps);
+}*/
+
+function _save_endnote8_maps() {
+  $typemap = _get_endnote8_type_map();
+  $typenames = _get_endnote8_type_names();
+  $fieldmap = _get_endnote8_field_map();
+  $maps = array_merge($typemap, $typenames, $fieldmap);
+  biblio_save_map($maps);
+}
+
+function _reset_endnote_xml_map($version, $type) {
+  $count = db_query("SELECT COUNT(*) FROM {biblio_type_maps} WHERE format=:format", array(':format' => $version))->fetchField();
+  if ($count && $type) { //update
+    $function = '_get_' . $version . '_' . $type;
+    if (!function_exists($function)) return;
+    $map = $function();
+    drupal_write_record('biblio_type_maps', $map, 'format');
+    db_update('biblio_type_maps')
+      ->fields($map)
+      ->condition('format', $version)
+      ->execute();
+  }
+  else { // install
+    db_delete('biblio_type_maps')
+      ->condition('format', $version)
+      ->execute();
+    $save_maps = '_save_' . $version . '_maps';
+    $save_maps();
+  }
+}
+
+function _get_endnote8_type_map() {   // micee edit array values (100->150 for entire array)
+  $map['type_map'] = serialize(
+        array(
+                2 => 162, // artwork
+                3 => 164, // Audio Visual
+                4 => 167, // bill
+                5 => 151, // Book Section
+                6 => 150, // Book
+                7 => 166, // case
+                9 => 163, // software
+                17 => 152, // Journal Article
+                10 => 154, // Conference Proceeding
+                12 => 157, // web page
+                13 => 179, // Generic
+                14 => 165, // hearing
+                19 => 156, // magazine_article
+                20 => 172, // map
+                21 => 160, // film
+                21 => 161, // broadcast
+                23 => 155, // newspaper_article
+                25 => 169, // patent
+                26 => 170, // personal communication
+                27 => 159, // Report
+                28 => 179, // Edited Book
+                31 => 168, // statute
+                32 => 158, // Thesis
+                34 => 174, // unpublished
+                36 => 171, // manuscript
+                37 => 179, // figure
+                38 => 173, // chart
+                39 => 179, // equation
+                43 => 179, // electronic article
+                44 => 179, // electronic book
+                45 => 175, // online database
+                46 => 176, // government_document
+                47 => 153, // conference_paper
+                48 => 179, // online multimedia
+                49 => 177, // Classical Work
+                50 => 178, // legal_ruling
+                52 => 179, // Dictionary
+                53 => 179, // Encyclopedia
+                54 => 179, // Grant
+        )
+  );
+  $map['format'] = 'endnote8';
+  return $map;
+}
+
+function _get_endnote8_type_names() {
+  $map['type_names'] =  serialize(
+        array(
+                2 => 'Artwork',
+                3 => 'Audio Visual',
+                4 => 'Bill',
+                5 => 'Book Section',
+                6 => 'Book',
+                7 => 'Case',
+                9 => 'Software',
+                17 => 'Journal Article',
+                10 => 'Conference Proceeding',
+                12 => 'Web page',
+                13 => 'Generic',
+                14 => 'Hearing',
+                19 => 'Magazine Article',
+                20 => 'Map',
+                21 => 'Film',
+                21 => 'Broadcast',
+                23 => 'Newspaper Article',
+                25 => 'Patent',
+                26 => 'Personal Communication',
+                27 => 'Report',
+                28 => 'Edited Book',
+                31 => 'Statute',
+                32 => 'Thesis',
+                34 => 'Unpublished',
+                36 => 'Manuscript',
+                37 => 'Figure',
+                38 => 'Chart',
+                39 => 'Equation',
+                43 => 'Electronic Article',
+                44 => 'Electronic Book',
+                45 => 'Online Database',
+                46 => 'Government Document',
+                47 => 'Conference Paper',
+                48 => 'Online Multimedia',
+                49 => 'Classical Work',
+                50 => 'Legal Ruling',
+                52 => 'Dictionary',
+                53 => 'Encyclopedia',
+                54 => 'Grant',
+        )
+  );
+  $map['format'] = 'endnote8';
+  return $map;
+}
+
+function _get_endnote8_field_map() {
+
+/*
+//biblio_authors
+//biblio_secondary_authors
+//biblio_tertiary_authors
+//biblio_subsidiary_authors
+//biblio_corp_authors
+biblio_other_number
+biblio_other_author_affiliations
+			biblio_abst_f
+//biblio_keywords
+biblio_translated_title
+biblio_citekey
+			biblio_coins
+			biblio_issn
+///biblio_doi
+			biblio_refereed*/
+
+  $map['field_map'] =  serialize(
+        array(
+                 'source-app'                     => '',
+                 'rec-number'                     => '',
+                 'ref-type'                          => 'biblio_type',
+                 'auth-address'                   => 'biblio_auth_address',
+                 'auth-affiliaton'                => '',
+                 'secondary-title'                => 'biblio_secondary_title',
+                 'tertiary-title'                 => 'biblio_tertiary_title',
+                 'alt-title'                      => 'biblio_alternate_title',
+                 'short-title'                    => 'biblio_short_title',
+                 'translated-title'               => 'biblio_translated_title',
+                 'full-title'                     => '',
+                 'abbr-1'                         => 'biblio_short_title',
+                 'abbr-2'                         => '',
+                 'abbr-3'                         => '',
+                 'pages'                          => 'biblio_pages',
+                 'volume'                         => 'biblio_volume',
+                 'number'                         => 'biblio_number',
+                 'issue'                          => 'biblio_issue',
+                 'secondary-volume'               => '',
+                 'secondary-issue'                => '',
+                 'num-vols'                       => 'biblio_number_of_volumes',
+                 'edition'                        => 'biblio_edition',
+                 'section'                        => 'biblio_section',
+                 'reprint-edition'                => 'biblio_reprint_edition',
+                 'reprint-status'                 => '',
+                 'year'                           => 'biblio_year',
+                 'pub-dates'                      => 'biblio_date',
+                 'copyright-dates'                => '',
+                 'pub-location'                   => 'biblio_place_published',
+                 'publisher'                      => 'biblio_publisher',
+                 'orig-pub'                       => 'biblio_original_publication',
+                 'isbn'                           => 'biblio_isbn',
+                 'accession-num'                  => 'biblio_accession_number',
+                 'call-num'                       => 'biblio_call_number',
+                 'report-id'                      => '',
+                 'coden'                          => '',
+                 'electronic-resource-num'        => '',
+                 'abstract'                       => 'biblio_abst_e',
+                 'label'                          => 'biblio_label',
+                 'image'                          => '',
+                 'caption'                        => '',
+                 'notes'                          => 'biblio_notes',
+                 'research-notes'                 => 'biblio_research_notes',
+                 'work-type'                      => 'biblio_type_of_work',
+                 'reviewed-item'                  => '',
+                 'availability'                   => '',
+                 'remote-source'                  => '',
+                 'meeting-place'                  => '',
+                 'work-location'                  => '',
+                 'work-extent'                    => '',
+                 'pack-method'                    => '',
+                 'size'                           => '',
+                 'repro-ratio'                    => '',
+                 'remote-database-name'           => 'biblio_remote_db_name',
+                 'remote-database-provider'       => 'biblio_remote_db_provider',
+                 'language'                       => 'biblio_lang',
+                 'web-urls'                       => '',
+                 'pdf-urls'                       => '',
+                 'text-urls'                      => '',
+                 'image-urls'                     => '',
+                 'related-urls'                   => 'biblio_url',
+                 'access-date'                    => 'biblio_access_date',
+                 'modified-date'                  => '',
+                 'custom1'                        => 'biblio_custom1',
+                 'custom2'                        => 'biblio_custom2',
+                 'custom3'                        => 'biblio_custom3',
+                 'custom4'                        => 'biblio_custom4',
+                 'custom5'                        => 'biblio_custom5',
+                 'custom6'                        => 'biblio_custom6',
+                 'custom7'                        => 'biblio_custom7',
+                 'misc1'                          => '',
+                 'misc2'                          => '',
+                 'misc3'                          => '',
+                 'biblio_doi'                            => 'biblio_doi',   // added field
+                 'biblio_pubmed_id'                      => 'biblio_pubmed_id',   // added field
+                 'biblio_pubmed_md5'                      => 'biblio_pubmed_md5',   // added field
+                 'biblio_pmcid'                          => 'biblio_pmcid',   // added field
+                 'biblio_abst_f'                          => 'biblio_abst_f',   // added field
+                 'biblio_issn'                          => 'biblio_issn',   // added field 
+                 'biblio_coins'                          => 'biblio_coins',   // added field 
+                 'biblio_refereed'                          => 'biblio_refereed',   // added field 
+                 //'biblio_pubmed_grants'                          => 'biblio_pubmed_grants',   // added programatically in same fashion as author/contributor relationship
+                 'micee1_1_type'                  =>     'micee1_1_type',      // micee edit -> add micee field types to array
+                 'micee1_2_ethical'               =>     'micee1_2_ethical',
+                 'micee1_3_1_gender'              =>     'micee1_3_1_gender',
+                 'micee1_3_2_age_development'     =>     'micee1_3_2_age_development',
+                 'micee1_3_3_clinical_info'       =>     'micee1_3_3_clinical_info',
+                 'micee1_3_4_genetic_var'         =>     'micee1_3_4_genetic_var',
+                 'micee1_3_5_familial_hist'       =>     'micee1_3_5_familial_hist',
+                 'micee1_3_6_point_within_cyc'    =>     'micee1_3_6_point_within_cyc',
+                 'micee1_3_7_conscious_sedat'     =>     'micee1_3_7_conscious_sedat',
+                 'micee1_4_1_gender'              =>     'micee1_4_1_gender',
+                 'micee1_4_2_age_development'     =>     'micee1_4_2_age_development',
+                 'micee1_4_3_genus_species'       =>     'micee1_4_3_genus_species',
+                 'micee1_4_4_supplier'            =>     'micee1_4_4_supplier',
+                 'micee1_4_5_genetic_var'         =>     'micee1_4_5_genetic_var',
+                 'micee1_4_6_disease_model'       =>     'micee1_4_6_disease_model',
+                 'micee1_4_7_husbandry'           =>     'micee1_4_7_husbandry',
+                 'micee1_4_8_point_within_cyc'    =>     'micee1_4_8_point_within_cyc',
+                 'micee1_4_9_conscious_sedat'     =>     'micee1_4_9_conscious_sedat',
+                 'micee1_4_10_method_dispatch'    =>     'micee1_4_10_method_dispatch',
+                 'micee1_4_11_anatomical_origin'  =>     'micee1_4_11_anatomical_origin',
+                 'micee1_4_12_isolation_proc'     =>     'micee1_4_12_isolation_proc',
+                 'micee1_4_13_time_method'        =>     'micee1_4_13_time_method',
+                 'micee1_4_14_isolated_heart'     =>     'micee1_4_14_isolated_heart',
+                 'micee1_4_15_cell_selection'     =>     'micee1_4_15_cell_selection',
+                 'micee1_5_1_cellular_acellular'  =>     'micee1_5_1_cellular_acellular',
+                 'micee1_5_2_growth_conditions'   =>     'micee1_5_2_growth_conditions',
+                 'micee1_6_1_cell_line'           =>     'micee1_6_1_cell_line',
+                 'micee1_6_2_anatomical_origin'   =>     'micee1_6_2_anatomical_origin',
+                 'micee1_6_3_passage'             =>     'micee1_6_3_passage',
+                 'micee1_6_4_culture_conditions'  =>     'micee1_6_4_culture_conditions',
+                 'micee1_6_5_cell_selection'      =>     'micee1_6_5_cell_selection',
+                 'micee1_7_1_source_anat_origin'  =>     'micee1_7_1_source_anat_origin',
+                 'micee1_7_2_passage'             =>     'micee1_7_2_passage',
+                 'micee1_7_3_culture_diff_cond'   =>     'micee1_7_3_culture_diff_cond',
+                 'micee1_7_4_cell_selection'      =>     'micee1_7_4_cell_selection',
+                 'micee2_1_sample_temp'           =>     'micee2_1_sample_temp',
+                 'micee2_2_gas_partial_press'     =>     'micee2_2_gas_partial_press',
+                 'micee2_3_solution'              =>     'micee2_3_solution',
+                 'micee2_4_flow_rates'            =>     'micee2_4_flow_rates',
+                 'micee2_5_bath_volume'           =>     'micee2_5_bath_volume',
+                 'micee2_6_chemicals_dyes'        =>     'micee2_6_chemicals_dyes',
+                 'micee3_1_study_design'          =>     'micee3_1_study_design',
+                 'micee3_2_sufficiently_detailed' =>     'micee3_2_sufficiently_detailed',
+                 'micee4_1_time_window_rec'       =>     'micee4_1_time_window_rec',
+                 'micee4_2_spatial_location_rec'  =>     'micee4_2_spatial_location_rec',
+                 'micee4_3_1_elec_rec_equip'      =>     'micee4_3_1_elec_rec_equip',
+                 'micee4_3_2_ad_convert'          =>     'micee4_3_2_ad_convert',
+                 'micee4_4_1_opt_meas_equip'      =>     'micee4_4_1_opt_meas_equip',
+                 'micee4_4_2_settings'            =>     'micee4_4_2_settings',
+                 'micee4_5_1_other_rec_equip'     =>     'micee4_5_1_other_rec_equip',
+                 'micee4_5_2_ad_convert'          =>     'micee4_5_2_ad_convert',
+                 'micee4_6_timing_control'        =>     'micee4_6_timing_control',
+                 'micee4_7_hdwr_bsd_data_proc'    =>     'micee4_7_hdwr_bsd_data_proc',
+                 'micee4_8_rec_software_environ'  =>     'micee4_8_rec_software_environ',
+                 'micee5_1_analy_software_environ'=>     'micee5_1_analy_software_environ',
+                 'micee5_2_n_numbers'             =>     'micee5_2_n_numbers',
+                 'micee5_3_observation_inclusion' =>     'micee5_3_observation_inclusion',
+                 'micee5_4_signal_to_noise'       =>     'micee5_4_signal_to_noise',
+                 'micee5_5_software_based_proc'   =>     'micee5_5_software_based_proc',
+                 'micee5_6_calc_params'           =>     'micee5_6_calc_params',
+                 'micee5_7_sufficiently_detailed' =>     'micee5_7_sufficiently_detailed',
+                 'micee5_8_data_examples'         =>     'micee5_8_data_examples',
+        )
+  );
+
+  $map['format'] = 'endnote8';
+  return $map;
+}
+/*function _get_endnote7_type_map() {    //micee edit - commented endnote 7 maps to disable
+
+  $map['type_map'] = serialize(
+        array(
+                0 => 152, // Journal Article
+                1 => 150, // Book
+                2 => 158, // Thesis
+                3 => 153, // Conference Proceedings
+                4 => 170, // Personal Communication
+                5 => 155, // NewsPaper Article
+                6 => 163, // Computer Program
+                7 => 151, // Book Section
+                8 => 156, // Magazine Article
+                9 => 150, // Edited Book
+                10 => 159, // Report
+                11 => 172, // Map
+                12 => 164, // Audiovisual Material
+                13 => 162, // Artwork
+                15 => 169, // Patent
+                16 => 157, // Electronic Source
+                17 => 167, // Bill
+                18 => 166, // Case
+                19 => 165, // Hearing
+                20 => 171, // Manuscript
+                21 => 160, // Film or Broadcast
+                22 => 168, // Statute
+                26 => 173, // Chart or Table
+                31 => 179 // Generic
+        )
+  );
+  $map['format'] = 'endnote7';
+  return $map;
+}
+function _get_endnote7_type_names() {
+
+  $map['type_names'] =  serialize(
+        array(
+                0 => 'Journal Article',
+                1 => 'Book',
+                2 => 'Thesis',
+                3 => 'Conference Proceedings',
+                4 => 'Personal Communication',
+                5 => 'NewsPaper Article',
+                6 => 'Computer Program',
+                7 => 'Book Section',
+                8 => 'Magazine Article',
+                9 => 'Edited Book',
+                10 => 'Report',
+                11 => 'Map',
+                12 => 'Audiovisual Material',
+                13 => 'Artwork',
+                15 => 'Patent',
+                16 => 'Electronic Source',
+                17 => 'Bill',
+                18 => 'Case',
+                19 => 'Hearing',
+                20 => 'Manuscript',
+                21 => 'Film or Broadcast',
+                22 => 'Statute',
+                26 => 'Chart or Table',
+                31 => 'Generic',
+        )
+  );
+  $map['format'] = 'endnote7';
+  return $map;
+}
+
+function _get_endnote7_field_map() {
+
+  $map['field_map'] =  serialize(
+        array(
+                'REFERENCE_TYPE'    => 'biblio_type',
+                'REFNUM'            => '',
+                'YEAR'              => 'biblio_year',
+                'SECONDARY_TITLE'   => 'biblio_secondary_title',
+                'PLACE_PUBLISHED'   => 'biblio_place_published',
+                'PUBLISHER'         => 'biblio_publisher',
+                'VOLUME'            => 'biblio_volume',
+                'ISSUE'             => 'biblio_issue',
+                'NUMBER_OF_VOLUMES' => 'biblio_number_of_volumes',
+                'NUMBER'            => 'biblio_number',
+                'PAGES'             => 'biblio_pages',
+                'SECTION'           => 'biblio_section',
+                'TERTIARY_TITLE'    => 'biblio_tertiary_title',
+                'EDITION'           => 'biblio_edition',
+                'DATE'              => 'biblio_date',
+                'TYPE_OF_WORK'      => 'biblio_type_of_work',
+                'SHORT_TITLE'       => 'biblio_short_title',
+                'ALTERNATE_TITLE'   => 'biblio_alternate_title',
+                'ISBN'              => 'biblio_isbn',
+                'ORIGINAL_PUB'      => 'biblio_original_publication',
+                'REPRINT_EDITION'   => 'biblio_reprint_edition',
+                'REVIEWED_ITEM'     => '',
+                'CUSTOM1'           => 'biblio_custom1',
+                'CUSTOM2'           => 'biblio_custom2',
+                'CUSTOM3'           => 'biblio_custom3',
+                'CUSTOM4'           => 'biblio_custom4',
+                'CUSTOM5'           => 'biblio_custom5',
+                'CUSTOM6'           => 'biblio_custom6',
+                'ACCESSION_NUMBER'  => 'biblio_accession_number',
+                'CALL_NUMBER'       => 'biblio_call_number',
+                'LABEL'             => 'biblio_label',
+                'KEYWORD'           => 'biblio_keywords',
+                'ABSTRACT'          => 'biblio_abst_e',
+                'NOTES'             => 'biblio_notes',
+                'URL'               => 'biblio_url',
+                'AUTHOR_ADDRESS'    => '',
+                'IMAGE'             => '',
+                'CAPTION'           => '',
+        )
+  );
+
+  $map['format'] = 'endnote7';
+  return $map;
+}*/
+/**
+ * Implementation of hook_schema().
+ *
+ * Note:  Pro Drupal Development models use of t() to translate 'description'
+ * for field definitions, but Drupal core does not use them.  We follow core.
+ */
+function biblio_xml_schema() {
+  $schema = array();
+  $schema['biblio_xml'] = array(
+    'fields' => array(
+      'nid'       => array('type' => 'int', 'not null' => TRUE),
+      'biblio_xml_md5' => array('type' => 'char', 'length' => 32, 'not null' => TRUE),
+      ),
+  'primary key' => array('nid'),
+  );
+  return $schema;
+}
