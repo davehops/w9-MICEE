@@ -94,11 +94,7 @@ function micee_csv_biblio_export_options() {
   return array('micee_csv'  => t('MICEE Schema CSV'));
 }
 
-
-
 function micee_csv_form_biblio_node_form_alter(&$form, &$form_state, $form_id) {	
-
-	
   if (($form_id == 'biblio_node_form') && !$form_state['submitted'] && !isset($form['#node']->nid)) {
 		$form['biblio_micee_import_links'] = array(
         '#type' => 'fieldset',
